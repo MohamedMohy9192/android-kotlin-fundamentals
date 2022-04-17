@@ -9,6 +9,7 @@
 
 
     <TextView
+        tools:background="@color/amber_500"
         android:id="@+id/box_one_text"
         style="@style/Widget.ColorMyViews.TextView"
         android:layout_width="0dp"
@@ -22,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        tools:background="@color/orange_900"
         android:id="@+id/box_two_text"
         style="@style/Widget.ColorMyViews.TextView"
         android:layout_width="130dp"
@@ -33,6 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/box_one_text" />
 
     <TextView
+        tools:background="@color/green_a700"
         android:id="@+id/box_three_text"
         style="@style/Widget.ColorMyViews.TextView"
         android:layout_width="0dp"
@@ -46,6 +49,7 @@
         app:layout_constraintTop_toTopOf="@+id/box_two_text" />
 
     <TextView
+        tools:background="@color/green_a700"
         android:id="@+id/box_four_text"
         style="@style/Widget.ColorMyViews.TextView"
         android:layout_width="0dp"
@@ -61,6 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/box_three_text" />
 
     <TextView
+        tools:background="@color/green_a700"
         android:id="@+id/box_five_text"
         style="@style/Widget.ColorMyViews.TextView"
         android:layout_width="0dp"
