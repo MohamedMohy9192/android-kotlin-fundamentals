@@ -12,7 +12,7 @@ import com.example.android.navigation.databinding.FragmentTitleBinding
 class TitleFragment : Fragment() {
 
     private var _binding: FragmentTitleBinding? = null
-    private val binding: FragmentTitleBinding = _binding!!
+    private val binding: FragmentTitleBinding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
