@@ -20,13 +20,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.android.navigation.databinding.FragmentGameWonBinding
 
 
 class GameWonFragment : Fragment() {
+
+    private val args: GameWonFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,9 +42,15 @@ class GameWonFragment : Fragment() {
         )
         // Add OnClick Handler for Next Match button
         binding.nextMatchButton.setOnClickListener {
-            findNavController().navigate(R.id.action_gameWonFragment_to_gameFragment)
+            findNavController().navigate(
+                GameWonFragmentDirections.actionGameWonFragmentToGameFragment()
+            )
         }
-
+        Toast.makeText(
+            context,
+            "NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}",
+            Toast.LENGTH_LONG
+        ).show()
         return binding.root
     }
 }

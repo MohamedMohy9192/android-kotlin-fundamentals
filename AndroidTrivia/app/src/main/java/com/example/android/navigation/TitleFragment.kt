@@ -13,6 +13,11 @@ class TitleFragment : Fragment() {
     private var _binding: FragmentTitleBinding? = null
     private val binding: FragmentTitleBinding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,7 +25,6 @@ class TitleFragment : Fragment() {
         _binding = DataBindingUtil.inflate(
             layoutInflater, R.layout.fragment_title, container, false
         )
-        setHasOptionsMenu(true)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -29,7 +33,9 @@ class TitleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.playButton.setOnClickListener {
-            findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+            findNavController().navigate(
+                TitleFragmentDirections.actionTitleFragmentToGameFragment()
+            )
         }
     }
 
