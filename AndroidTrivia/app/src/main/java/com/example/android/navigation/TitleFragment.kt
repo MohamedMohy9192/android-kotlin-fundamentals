@@ -26,6 +26,7 @@ class TitleFragment : Fragment() {
             layoutInflater, R.layout.fragment_title, container, false
         )
         // Inflate the layout for this fragment
+
         return binding.root
     }
 
