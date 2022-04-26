@@ -35,7 +35,7 @@ class TitleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.i("onCreate onViewCreated")
+        Timber.i("onViewCreated called")
         binding.playButton.setOnClickListener {
             findNavController().navigate(
                 TitleFragmentDirections.actionTitleFragmentToGameFragment()
