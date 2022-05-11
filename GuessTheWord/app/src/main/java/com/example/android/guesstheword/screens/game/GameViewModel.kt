@@ -14,6 +14,15 @@ class GameViewModel : ViewModel() {
     private val _word = MutableLiveData<String>("")
     val word: LiveData<String> get() = _word
 
+    // The hint for the current word
+    val wordHint: LiveData<String> = Transformations.map(word) { currentWord ->
+        val randomLetterIndex = (1..currentWord.length).random()
+        val letterAtIndex = currentWord[randomLetterIndex - 1].uppercaseChar()
+        "Current word has ${currentWord.length} letters " +
+                "\nThe letter at position $randomLetterIndex is $letterAtIndex"
+
+    }
+
     // The current score
     private val _score = MutableLiveData<Int>(0)
     val score: LiveData<Int> get() = _score
