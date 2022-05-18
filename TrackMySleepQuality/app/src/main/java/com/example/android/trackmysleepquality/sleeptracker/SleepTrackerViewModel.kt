@@ -17,10 +17,7 @@
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.SleepNight
 import com.example.android.trackmysleepquality.formatNights
@@ -35,10 +32,26 @@ class SleepTrackerViewModel(
 ) : AndroidViewModel(application) {
 
     private val tonight = MutableLiveData<SleepNight?>()
+    val startButtonVisible = Transformations.map(tonight) { sleepNight ->
+        sleepNight == null
+    }
+    val stopButtonVisible = Transformations.map(tonight) { sleepNight ->
+        sleepNight != null
+    }
+
     private val nights = database.getAllNights()
     val nightsString = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }
+    val clearButtonVisible = Transformations.map(nights) { sleepNights ->
+        sleepNights?.isNotEmpty()
+    }
+
+    private val _navigateToSleepQuality = MutableLiveData<SleepNight?>()
+    val navigateToSleepQuality: LiveData<SleepNight?> get() = _navigateToSleepQuality
+
+    private val _showSnackBarEvent = MutableLiveData<Boolean>()
+    val showSnackBarEvent: LiveData<Boolean> get() = _showSnackBarEvent
 
     init {
         initializeTonight()
@@ -86,6 +99,8 @@ class SleepTrackerViewModel(
             // Update the end time
             oldNight.endTimeMilli = System.currentTimeMillis()
             update(oldNight)
+
+            _navigateToSleepQuality.value = oldNight
         }
     }
 
@@ -97,11 +112,20 @@ class SleepTrackerViewModel(
         viewModelScope.launch {
             clear()
             tonight.value = null
+            _showSnackBarEvent.value = true
         }
     }
 
     private suspend fun clear() {
         database.clear()
+    }
+
+    fun doneNavigation() {
+        _navigateToSleepQuality.value = null
+    }
+
+    fun doneShowingSnackBar() {
+        _showSnackBarEvent.value = false
     }
 }
 
