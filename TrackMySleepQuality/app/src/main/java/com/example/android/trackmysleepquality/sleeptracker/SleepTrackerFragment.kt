@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.trackmysleepquality.R
+import com.example.android.trackmysleepquality.SleepNightAdapter
 import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerBinding
 import com.google.android.material.snackbar.Snackbar
@@ -61,6 +62,16 @@ class SleepTrackerFragment : Fragment() {
         binding.sleepTrackerViewModel = sleepTrackerViewModel
 
         binding.lifecycleOwner = viewLifecycleOwner
+
+        val adapter = SleepNightAdapter()
+        binding.sleepListRecyclerView.adapter = adapter
+
+        sleepTrackerViewModel.nights
+            .observe(viewLifecycleOwner) { nights ->
+                nights?.let { sleepNights ->
+                    adapter.submitList(sleepNights)
+                }
+            }
 
         sleepTrackerViewModel.navigateToSleepQuality
             .observe(viewLifecycleOwner) { sleepNight ->
